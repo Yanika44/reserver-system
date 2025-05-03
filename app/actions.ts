@@ -5,6 +5,11 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export async function createRentalHome({ userId }: { userId: string }) {
+  console.log('Creating home for userId:', userId); // ← check this
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+  
   const data = await prisma.home.findFirst({
     where: {
       userId: userId,
